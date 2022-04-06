@@ -1,23 +1,23 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import Logo from "../image/rodufy.png";
-import Girl from "../image/girl.svg";
-import People from "../image/people.svg";
+import Girl from "../image/girl1.png";
+import People from "../image/people2.png";
 import Avatar from "../image/Group 4.svg";
 
 const indexMain = () => {
   return (
     <section>
         <section className="hero__section bg-primary">
-        <div className="container mx-auto md:max-w-6xl p-3 py-8">
+        <div className="container mx-auto md:max-w-5xl px-3 pt-8 pb-12">
           <header>
-            <div className="xs:flex justify-between">
+          <div className="xs:flex justify-between">
               <div className="mb-6 sm:mb-0 flex justify-center xs:flex-none">
                 <img src={Logo} alt="Rodufy Logo" className="w-40 h-auto" />
               </div>
               <div>
                 <Link to="/register">
-                  <button className="bg-secondary rounded text-white hover:bg-orange-600 py-2 px-5 mr-5 mt-8 xs:mt-0">
+                  <button className="bg-secondary rounded text-white hover:bg-orange-600 py-2 px-5 mr-5 mt-10 xs:mt-0">
                     Register
                   </button>
                 </Link>
@@ -30,7 +30,7 @@ const indexMain = () => {
             </div>
           </header>
           <section className="mission_section" id="mission">
-            <div className="md:flex justify-between mt-14">
+            <div className="md:flex justify-between mt-16">
               <div className="text-white leading-loose">
                 <div className="md:w-96 mt-4 mb-5 md:mb-0">
                   <h1 className="font-bold lg:text-4xl text-3xl tracking-wider">
@@ -117,7 +117,7 @@ const indexMain = () => {
                 <img
                   src={Girl}
                   alt="A girl smiling"
-                  className=""
+               className="w-full"
                 />
               </div>
             </div>
@@ -126,7 +126,7 @@ const indexMain = () => {
       </section>
       <main>
         <section className="goal__section">
-          <div className="md:flex justify-between md:my-10 container mx-auto md:max-w-6xl p-3">
+          <div className="md:flex justify-between md:my-10 container mx-auto md:max-w-5xl p-3">
             <div className="leading-loose">
               <div className="md:w-96 mt-7 mb-6 md:mb-0">
                 <h2 className="font-bold lg:text-4xl text-3xl tracking-wider">
@@ -145,17 +145,17 @@ const indexMain = () => {
                 </button>
               </div>
             </div>
-            <div className="">
+            <div>
               <img
                 src={People}
                 alt="People on the bus"
-                className="lg:w-11/12 w-full h-auto"
+                className="w-full"
               />
             </div>
           </div>
         </section>
         <section className="contactUs_section py-4" id="contactUs">
-          <div className="md:flex justify-between container mx-auto md:max-w-6xl p-3">
+          <div className="md:flex justify-between container mx-auto md:max-w-5xl p-3">
             <div className="leading-loose">
               <div className="md:w-96 md:mt-16 mt-6">
                 <h2 className="font-bold lg:text-4xl text-3xl tracking-wider">
@@ -232,8 +232,8 @@ const indexMain = () => {
             <div className="flex justify-end items-end">
               <img
                 src={Avatar}
-                alt="Drawing illustration of a boy"
-                className="lg:w-11/12 h-auto"
+                alt="People on the bus"
+                className="lg:w-10/12 h-auto "
               />
             </div>
           </div>
@@ -247,16 +247,16 @@ const indexMain = () => {
             className="w-40 h-auto mt-6 mb-8"
           />
           <div className="md:flex justify-between">
-            <p className="mb-4 md:mb-0">
+            <p className="mb-6 md:mb-0">
               <a href="/">Blog</a>
             </p>
-            <p className="mb-4 md:mb-0">
+            <p className="mb-6 md:mb-0">
               <a href="/">Privacy Policy</a>
             </p>
-            <p className="mb-4 md:mb-0">
+            <p className="mb-6 md:mb-0">
               <a href="#mission">About Us</a>
             </p>
-            <p className="mb-4 md:mb-0">
+            <p className="mb-6 md:mb-0">
               <a href="#contactUs">Contact Us</a>
             </p>
           </div>

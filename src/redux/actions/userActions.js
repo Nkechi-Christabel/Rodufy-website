@@ -35,7 +35,7 @@ export const fetchPosts = () => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: CATCH_ERROR,
-      payload: handleError(e, 4),
+      payload: e.message
     });
   }
 };
