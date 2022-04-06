@@ -15,9 +15,9 @@ const Post = () => {
   const [sort, setSort] = useState(true);
   const postsPerPage = 8;
   let newArrForPosts = [];
- console.log(error)
+  console.log(error);
   const dispatch = useDispatch();
-  const moveUp = useRef()
+  const moveUp = useRef();
 
   //Dispatch/Invoke fetch Posts
   useEffect(() => {
@@ -83,9 +83,8 @@ const Post = () => {
   let userEmailSlice =
     loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
 
-
   const slicePostToDisplay = () => {
-    if(posts) {
+    if (posts) {
       const slicedPosts = posts.slice(
         postsToShow.length,
         postsToShow.length + postsPerPage
@@ -93,12 +92,11 @@ const Post = () => {
       newArrForPosts = [...postsToShow, ...slicedPosts];
       setPostsToShow(newArrForPosts);
     }
-   
   };
 
   useEffect(() => {
     slicePostToDisplay();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShowMorePosts = () => {
@@ -108,9 +106,9 @@ const Post = () => {
   };
 
   //Sort fetched data
-  const handleSort = () => {
+  const handleSort = (arr) => {
     if (sort) {
-      posts.sort((a, b) => {
+      arr.sort((a, b) => {
         a = a.description.toLowerCase();
         b = b.description.toLowerCase();
         if (a < b) {
@@ -122,7 +120,7 @@ const Post = () => {
         return 0;
       });
     } else {
-      posts.reverse();
+      arr.reverse();
     }
     setSort(!sort);
   };
@@ -163,7 +161,10 @@ const Post = () => {
         <div className="container mx-auto p-3">
           <section>
             <h3 className="py-6">
-              <span className="inline-block align-middle cursor-pointer mr-3">
+              <span
+                className="inline-block align-middle cursor-pointer mr-3"
+                onClick={() => handleSort(posts)}
+              >
                 <svg
                   width="20"
                   height="20"
@@ -237,9 +238,9 @@ const Post = () => {
               //     </div>
               //   :
               <div>
-                <div className="grid md:grid-cols-2 gap-14" >{trending}</div>
+                <div className="grid md:grid-cols-2 gap-14">{trending}</div>
                 <div className="flex justify-center mt-24">
-                  {posts && (
+                  {postsToShow && (
                     <>
                       <button
                         className="bg-secondary hover:bg-orange-600 text-white rounded cursor-pointer py-3 px-16"
@@ -249,9 +250,12 @@ const Post = () => {
                         Load More
                       </button>
                       <a href="/post/#trending">
-                      <span className="text-zinc-600 font-bold text-3xl ml-9 cursor-pointer animate-pulse hidden" ref={moveUp}>
-                        <i className="fa-solid fa-circle-arrow-up align-middle"></i>
-                      </span>
+                        <span
+                          className="text-zinc-600 font-bold text-3xl ml-9 cursor-pointer animate-pulse hidden"
+                          ref={moveUp}
+                        >
+                          <i className="fa-solid fa-circle-arrow-up align-middle"></i>
+                        </span>
                       </a>
                     </>
                   )}

@@ -82,7 +82,7 @@ const Index = () => {
                       DOWNLOAD<span className="block">APP</span>
                     </p>
                     <div className="apps">
-                      <span className="bg-white rounded inline-block mr-5 py-2 px-6">
+                      <span className="bg-white rounded inline-block mr-5 py-2 px-6 cursor-pointer">
                         <svg
                           width="30"
                           height="30"
@@ -124,7 +124,7 @@ const Index = () => {
                           />
                         </svg>
                       </span>
-                      <span className="bg-white rounded inline-block py-2 px-6">
+                      <span className="bg-white rounded inline-block py-2 px-6 cursor-pointer">
                         <svg
                           width="30"
                           height="30"
@@ -188,7 +188,7 @@ const Index = () => {
           </div>
         </section>
         <section className="contactUs_section py-4" id="contactUs">
-          <div className="md:flex justify-between container mx-auto md:max-w-5xl p-3">
+          <div className="md:flex justify-between container mx-auto md:max-w-5xl p-3 mb-6">
             <div className="leading-loose">
               <div className="md:w-96 md:mt-16 mt-6">
                 <h2 className="font-bold lg:text-4xl text-3xl tracking-wider">

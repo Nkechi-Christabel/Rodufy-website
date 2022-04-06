@@ -103,13 +103,13 @@ const Register = () => {
                     name="email"
                     autoComplete="off"
                     placeholder="Email"
-                    className="bg-tertiary w-full p-4 mb-2 border-none rounded outline-none"
+                    className="bg-tertiary w-full p-4 mb-4 border-none rounded outline-none"
                   />
 
                   <ErrorMessage
                     name="email"
                     component="div"
-                    className="py-3 flex justify-center text-red-500 text-xs italic error"
+                    className="py-3 flex justify-center text-red-500 text-xs italic"
                   />
 
           
@@ -123,7 +123,7 @@ const Register = () => {
                   <ErrorMessage
                     name="password"
                     component="div"
-                    className="py-3 flex justify-center text-red-500 text-xs italic error"
+                    className="py-3 flex justify-center text-red-500 text-xs italic"
                   />
 
                   <button

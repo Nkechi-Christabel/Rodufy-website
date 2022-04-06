@@ -99,7 +99,7 @@ const Login = () => {
                         name="email"
                         autoComplete="off"
                         placeholder="Email"
-                        className="bg-tertiary w-full p-4 mb-2 border-none rounded outline-none"
+                        className="bg-tertiary w-full p-4 mb-4 border-none rounded outline-none"
                       />
                      
                     <ErrorMessage
