@@ -18,14 +18,11 @@ const reviewSchema = yup.object({
     .min(8, "Password must be 8 characters or longer"),
 });
 
-
-
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [status, setStatus] = useState("idle");
-  const { error } = useSelector((state) => state.userInfo);
-
+  const { error } = useSelector((state) => state.error);
 
   //Initial value before form is submitted
   const initialValues = {
@@ -36,13 +33,12 @@ const Register = () => {
   //This is invoked when the form is submitted
   const handleSubmit = async ({ email, password }) => {
     setStatus("loading");
-    
+
     //Payload Schema
     const userInfo = {
       email,
       password,
     };
-
 
     //Get a response from the api call
     const responseData = await dispatch(register(userInfo));
@@ -56,7 +52,7 @@ const Register = () => {
         setTimeout(() => {
           navigate("/login");
         }, 3000);
-      }, 3000);
+      }, 2000);
     } else {
       setStatus("error");
       setTimeout(() => {
@@ -112,7 +108,6 @@ const Register = () => {
                     className="py-3 flex justify-center text-red-500 text-xs italic"
                   />
 
-          
                   <Field
                     type="password"
                     name="password"
@@ -139,8 +134,6 @@ const Register = () => {
               </div>
             )}
           </Formik>
-
-  
         </div>
       </section>
     </div>

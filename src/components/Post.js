@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { HashLink } from "react-router-hash-link";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import Logo from "../image/rodufy.png";
@@ -7,15 +8,17 @@ import { fetchPosts } from "../redux/actions/userActions";
 import Loader from "./Loader";
 
 const Post = () => {
+  const { loading } = useSelector((state) => state.userInfo);
+  const { error } = useSelector((state) => state.error);
   const posts = useSelector((state) => state.userInfo.products);
   const loggedIn = useSelector((state) => state.userInfo.login);
-  const { error, loading } = useSelector((state) => state.userInfo);
   const [postsToShow, setPostsToShow] = useState([]);
   const [next, setNext] = useState(4);
   const [sort, setSort] = useState(true);
   const postsPerPage = 8;
   let newArrForPosts = [];
-  console.log(error);
+
+  console.log("Error", error);
   const dispatch = useDispatch();
   const moveUp = useRef();
 
@@ -62,48 +65,20 @@ const Post = () => {
   };
 
   //map through posts
-  const topPost =
-    posts &&
-    posts.slice(0, 6).map((post) => (
-      <div key={post.id}>
-        <div className="relative sm:mr-4 mr-0 overflow-hidden cursor-pointer ">
-          <img
-            src={post.metaImageUrl}
-            alt="images"
-            className="w-full h-96 rounded object-cover transition-all hover:scale-125 ease-in duration-700"
-          />
-          <p className="absolute bottom-3 left-2 right-2 bg-overlay bg-opacity-50 text-white rounded line-clamp-2 hover:line-clamp-none hover:cursor-pointer px-4 py-2">
-            {post.description}
-          </p>
-        </div>
+  const topPost = posts?.slice(0, 6).map((post) => (
+    <div key={post.id}>
+      <div className="relative sm:mr-4 mr-0 overflow-hidden cursor-pointer ">
+        <img
+          src={post.metaImageUrl}
+          alt="images"
+          className="w-full h-96 rounded object-cover transition-all hover:scale-125 ease-in duration-700"
+        />
+        <p className="absolute bottom-3 left-2 right-2 bg-overlay bg-opacity-50 text-white rounded line-clamp-2 hover:line-clamp-none hover:cursor-pointer px-4 py-2">
+          {post.description}
+        </p>
       </div>
-    ));
-
-  //Get the logged in user email
-  let userEmailSlice =
-    loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
-
-  const slicePostToDisplay = () => {
-    if (posts) {
-      const slicedPosts = posts.slice(
-        postsToShow.length,
-        postsToShow.length + postsPerPage
-      );
-      newArrForPosts = [...postsToShow, ...slicedPosts];
-      setPostsToShow(newArrForPosts);
-    }
-  };
-
-  useEffect(() => {
-    slicePostToDisplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleShowMorePosts = () => {
-    slicePostToDisplay(next, next + postsPerPage);
-    setNext(next + postsPerPage);
-    moveUp.current.style.display = "block";
-  };
+    </div>
+  ));
 
   //Sort fetched data
   const handleSort = (arr) => {
@@ -125,7 +100,25 @@ const Post = () => {
     setSort(!sort);
   };
 
-  const trending = postsToShow.map((post) => (
+  //Get the logged in user email
+  let userEmailSlice =
+    loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
+
+  const slicePostToDisplay = (start, end) => {
+    const slicedPosts = posts.slice(
+      postsToShow.length,
+      postsToShow.length + postsPerPage
+    );
+    newArrForPosts = [...postsToShow, ...slicedPosts];
+    setPostsToShow(newArrForPosts);
+  };
+
+  useEffect(() => {
+    posts && slicePostToDisplay(0, postsPerPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const trending = postsToShow?.map((post) => (
     <div className="relative overflow-hidden cursor-pointer" key={post.id}>
       <img
         src={post.metaImageUrl}
@@ -137,6 +130,13 @@ const Post = () => {
       </p>
     </div>
   ));
+
+  const handleShowMorePosts = () => {
+    slicePostToDisplay(next, next + postsPerPage);
+    setNext(next + postsPerPage);
+    console.log(postsToShow);
+    moveUp.current.style.display = "block";
+  };
 
   return (
     <div>
@@ -157,7 +157,7 @@ const Post = () => {
           </Link>
         </section>
       </header>
-      <main className="bg-tertiary">
+      <main className="bg-tertiary min-h-screen">
         <div className="container mx-auto p-3">
           <section>
             <h3 className="py-6">
@@ -191,11 +191,11 @@ const Post = () => {
               <div className="flex justify-center items-center h-96 mt-10">
                 <Loader />
               </div>
+            ) : error ? (
+              <div className="h-96 pt-52 flex justify-center items-center text-xl text-red-500 font-mono italic">
+                {error}
+              </div>
             ) : (
-              //  error ?
-              //     <div className="h-96 pt-52 flex justify-center items-center text-xl text-red-500 font-mono">
-              //       {error}
-              //     </div> :
               <Slider {...settings}>{topPost}</Slider>
             )}
           </section>
@@ -231,32 +231,32 @@ const Post = () => {
               <div className="flex justify-center items-center h-96 mt-10">
                 <Loader />
               </div>
+            ) : error ? (
+              <div className="h-96 pt-52 flex justify-center items-center text-xl text-red-500 font-mono italic">
+                {error}
+              </div>
             ) : (
-              // error ?
-              //     <div className="h-96 pt-52 flex justify-center items-center text-xl text-red-500 font-mono">
-              //       {error}
-              //     </div>
-              //   :
               <div>
                 <div className="grid md:grid-cols-2 gap-14">{trending}</div>
                 <div className="flex justify-center mt-24">
-                  {postsToShow && (
+                  {postsToShow.length > 0 && (
                     <>
-                      <button
-                        className="bg-secondary hover:bg-orange-600 text-white rounded cursor-pointer py-3 px-16"
-                        // onClick={handleLoad}
-                        onClick={handleShowMorePosts}
-                      >
-                        Load More
-                      </button>
-                      <a href="/post/#trending">
+                      {postsToShow.length < posts.length && (
+                        <button
+                          className="bg-secondary hover:bg-orange-600 text-white rounded cursor-pointer py-3 px-16"
+                          onClick={handleShowMorePosts}
+                        >
+                          Load More
+                        </button>
+                      )}
+                      <HashLink smooth to="/post/#trending">
                         <span
                           className="text-zinc-600 font-bold text-3xl ml-9 cursor-pointer animate-pulse hidden"
                           ref={moveUp}
                         >
                           <i className="fa-solid fa-circle-arrow-up align-middle"></i>
                         </span>
-                      </a>
+                      </HashLink>
                     </>
                   )}
                 </div>

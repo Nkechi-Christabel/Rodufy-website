@@ -1,4 +1,4 @@
-import React from "react";
+// import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../image/rodufy.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -11,18 +11,18 @@ import { login } from "../redux/actions/userActions";
 
 // form validation
 const reviewSchema = yup.object({
-  email: yup.string().required("Email is required to Login").email("Email is not valid"),
-  password: yup.string().required("Password is required Login")
+  email: yup
+    .string()
+    .required("Email is required to Login")
+    .email("Email is not valid"),
+  password: yup.string().required("Password is required Login"),
 });
-  
 
 const Login = () => {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [status, setStatus] = useState("idle");
-  const { error } = useSelector((state) => state.userInfo);
-
+  const { error } = useSelector((state) => state.error);
 
   //Initial value before form is submitted
   const initialValues = {
@@ -31,36 +31,32 @@ const Login = () => {
   };
 
   //This is invoked when the form is submitted
-  const handleSubmit = async ({ email, password}) => {
+  const handleSubmit = async ({ email, password }) => {
     setStatus("loading");
 
     //Payload Schema
     const loggedInUser = {
       email,
-      password
+      password,
     };
 
-   
     //Get a response from the api call
     const responseData = await dispatch(login(loggedInUser));
-     
+
     //Display a message according to the response status
-      if (responseData?.status ===  200) {
-        setTimeout(() => {
-          setStatus("success");
-            navigate("/post");
-        }, 2000);
-      }
-      else {
-        setStatus("error");
-        setTimeout(() => {
-          toast.error(`${error}`);
-        }, 3000);
-      }
-    
-  }
-  
-  
+    if (responseData?.status === 200) {
+      setTimeout(() => {
+        setStatus("success");
+        navigate("/post");
+      }, 2000);
+    } else {
+      setStatus("error");
+      setTimeout(() => {
+        error && toast.error(`${error}`);
+      }, 3000);
+    }
+  };
+
   //Changes the text in the login button depending on the status
   const renderSubmitText = () => {
     if (status === "idle" || status === "error") {
@@ -94,45 +90,42 @@ const Login = () => {
             {({ isSubmitting }) => (
               <div className="">
                 <Form className="py-6">
-                      <Field
-                        type="email"
-                        name="email"
-                        autoComplete="off"
-                        placeholder="Email"
-                        className="bg-tertiary w-full p-4 mb-4 border-none rounded outline-none"
-                      />
-                     
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="py-3 flex justify-center text-red-500 text-xs italic error"
-                    />
-      
-                
-                      <Field
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        className="bg-tertiary w-full p-4 mb-2 border-none rounded outline-none"
-                      />
-                  
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="py-3 flex justify-center text-red-500 text-xs italic error"
-                    />
-        
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`text-center bg-secondary w-full text-white rounded hover:bg-orange-600 p-4 mt-6 ${
-                        status === "loading" && "bg-opacity-70"
-                      }`}
-                      
-                    >
-                      {renderSubmitText()}
-                    </button>
-               
+                  <Field
+                    type="email"
+                    name="email"
+                    autoComplete="off"
+                    placeholder="Email"
+                    className="bg-tertiary w-full p-4 mb-4 border-none rounded outline-none"
+                  />
+
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="py-3 flex justify-center text-red-500 text-xs italic error"
+                  />
+
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className="bg-tertiary w-full p-4 mb-2 border-none rounded outline-none"
+                  />
+
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="py-3 flex justify-center text-red-500 text-xs italic error"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`text-center bg-secondary w-full text-white rounded hover:bg-orange-600 p-4 mt-6 ${
+                      status === "loading" && "bg-opacity-70"
+                    }`}
+                  >
+                    {renderSubmitText()}
+                  </button>
                 </Form>
               </div>
             )}

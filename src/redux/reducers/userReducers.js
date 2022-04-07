@@ -33,6 +33,14 @@ export const userReducers = (state = initialState, { type, payload }) => {
         loading: false,
         login: payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+export const errorReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case CATCH_ERROR:
       return {
         loading: false,
@@ -42,4 +50,3 @@ export const userReducers = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-

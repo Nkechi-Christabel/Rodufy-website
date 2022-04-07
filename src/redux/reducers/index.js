@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import { userReducers } from "./userReducers";
+import { errorReducer, userReducers } from "./userReducers";
 
 const reducers = combineReducers({
   userInfo: userReducers,
+  error: errorReducer,
 });
-
 
 export default reducers;
