@@ -7,7 +7,7 @@ import Avatar from "../image/Group 4.svg";
 
 const Index = () => {
   return (
-    <div>
+    <div className="xs:text-left text-center">
       <section className="bg-secondary py-5 px-3">
         <div className="flex justify-between container mx-auto md:max-w-6xl">
           <span className=" text-white bg-secondaryLight cursor-pointer rounded-md py-2 px-6 mr-3 sm:mr-0">
@@ -44,8 +44,8 @@ const Index = () => {
       <section className="hero__section bg-primary">
         <div className="container mx-auto md:max-w-5xl px-3 pt-8 pb-12">
           <header>
-          <div className="xs:flex justify-between">
-              <div className="mb-6 sm:mb-0 flex justify-center xs:flex-none">
+            <div className="xs:flex justify-between">
+              <div className="mb-6 sm:mb-0 ">
                 <img src={Logo} alt="Rodufy Logo" className="w-40 h-auto" />
               </div>
               <div>
@@ -77,12 +77,12 @@ const Index = () => {
                     We would strive to achieve that through providing education
                     and quality health
                   </p>
-                  <div className="flex py-3">
+                  <div className="flex sm:justify-start justify-center py-3">
                     <p className="xs:mr-7 mr-5 font-bold">
                       DOWNLOAD<span className="block">APP</span>
                     </p>
                     <div className="apps">
-                      <span className="bg-white rounded inline-block mr-5 py-2 px-6 cursor-pointer">
+                      <span className="bg-white rounded inline-block mr-5 xxs:mr-3 xxs:px-5 px-6 py-2  cursor-pointer">
                         <svg
                           width="30"
                           height="30"
@@ -124,7 +124,7 @@ const Index = () => {
                           />
                         </svg>
                       </span>
-                      <span className="bg-white rounded inline-block py-2 px-6 cursor-pointer">
+                      <span className="bg-white rounded inline-block xxs:px-5 px-6 py-2 cursor-pointer">
                         <svg
                           width="30"
                           height="30"
@@ -147,11 +147,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="">
-                <img
-                  src={Girl}
-                  alt="A girl smiling"
-               className="w-full"
-                />
+                <img src={Girl} alt="A girl smiling" className="w-full" />
               </div>
             </div>
           </section>
@@ -179,11 +175,7 @@ const Index = () => {
               </div>
             </div>
             <div>
-              <img
-                src={People}
-                alt="People on the bus"
-                className="w-full"
-              />
+              <img src={People} alt="People on the bus" className="w-full" />
             </div>
           </div>
         </section>
@@ -262,11 +254,11 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-end items-end">
+            <div className="flex justify-end items-end ml-16 sm:ml-0">
               <img
                 src={Avatar}
-                alt="People on the bus"
-                className="lg:w-10/12 h-auto "
+                alt="A drawing illustration"
+                className="lg:w-10/12 w-full h-auto"
               />
             </div>
           </div>
@@ -274,11 +266,13 @@ const Index = () => {
       </main>
       <footer className="bg-primary pt-4">
         <section className=" container mx-auto md:max-w-6xl text-white p-3">
-          <img
-            src={Logo}
-            alt="Rodufy Logo"
-            className="w-40 h-auto mt-6 mb-8"
-          />
+          <div>
+            <img
+              src={Logo}
+              alt="Rodufy Logo"
+              className="w-40 h-auto mt-6 mb-10"
+            />
+          </div>
           <div className="md:flex justify-between">
             <p className="mb-6 md:mb-0">
               <a href="/">Blog</a>

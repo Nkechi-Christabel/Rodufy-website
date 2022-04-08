@@ -5,9 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { login } from "../redux/actions/userActions";
+import { clearError, login } from "../redux/actions/userActions";
 
 // form validation
 const reviewSchema = yup.object({
@@ -23,6 +23,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("idle");
   const { error } = useSelector((state) => state.error);
+
+  //On route change, reset error to null
+  useEffect(() => {
+    dispatch(clearError());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //Initial value before form is submitted
   const initialValues = {
@@ -52,7 +58,9 @@ const Login = () => {
     } else {
       setStatus("error");
       setTimeout(() => {
-        error && toast.error(`${error}`);
+        !error
+          ? toast.error("Something went wrong. Please try again.")
+          : toast.error(`${error}`);
       }, 3000);
     }
   };

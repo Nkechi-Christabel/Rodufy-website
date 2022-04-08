@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HashLink } from "react-router-hash-link";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import Logo from "../image/rodufy.png";
-import { fetchPosts } from "../redux/actions/userActions";
+import { clearError, fetchPosts, logout } from "../redux/actions/userActions";
 import Loader from "./Loader";
 
 const Post = () => {
@@ -15,12 +15,17 @@ const Post = () => {
   const [postsToShow, setPostsToShow] = useState([]);
   const [next, setNext] = useState(4);
   const [sort, setSort] = useState(true);
+  const navigate = useNavigate();
   const postsPerPage = 8;
   let newArrForPosts = [];
-
-  console.log("Error", error);
   const dispatch = useDispatch();
   const moveUp = useRef();
+
+  //On route change, reset error to null
+  useEffect(() => {
+    dispatch(clearError());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //Dispatch/Invoke fetch Posts
   useEffect(() => {
@@ -100,6 +105,12 @@ const Post = () => {
     setSort(!sort);
   };
 
+  //HANDLE LOGOUT
+  const handleLogOut = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
   //Get the logged in user email
   let userEmailSlice =
     loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
@@ -148,13 +159,12 @@ const Post = () => {
             </Link>
             <p className="text-white">{`Hi ${userEmailSlice}`}.</p>
           </div>
-          <Link to="/">
-            <div className="flex justify-end mt-4">
-              <button className=" bg-secondary rounded text-white hover:bg-orange-600 py-2 px-7">
-                Logout
-              </button>
-            </div>
-          </Link>
+
+          <div className="flex justify-end mt-4" onClick={handleLogOut}>
+            <button className=" bg-secondary rounded text-white hover:bg-orange-600 py-2 px-7">
+              Logout
+            </button>
+          </div>
         </section>
       </header>
       <main className="bg-tertiary min-h-screen">
@@ -233,7 +243,9 @@ const Post = () => {
               </div>
             ) : error ? (
               <div className="h-96 pt-52 flex justify-center items-center text-xl text-red-500 font-mono italic">
-                {error}
+                {error === "null"
+                  ? "Something went wrong. Please try again."
+                  : error}
               </div>
             ) : (
               <div>

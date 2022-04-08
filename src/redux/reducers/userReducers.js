@@ -3,6 +3,8 @@ import {
   USER_LOGIN,
   USER_REGISTER,
   FETCH_POSTS,
+  CLEAR_ERROR,
+  LOGOUT,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -33,7 +35,10 @@ export const userReducers = (state = initialState, { type, payload }) => {
         loading: false,
         login: payload,
       };
-
+    case LOGOUT:
+      return {
+        ...initialState,
+      };
     default:
       return state;
   }
@@ -45,6 +50,11 @@ export const errorReducer = (state = initialState, { type, payload }) => {
       return {
         loading: false,
         error: payload,
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

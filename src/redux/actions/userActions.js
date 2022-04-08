@@ -4,6 +4,8 @@ import {
   USER_LOGIN,
   USER_REGISTER,
   FETCH_POSTS,
+  CLEAR_ERROR,
+  LOGOUT,
 } from "../constants/actionTypes";
 
 //Sorting errors to pass to dispatch
@@ -35,7 +37,7 @@ export const fetchPosts = () => async (dispatch) => {
   } catch (e) {
     dispatch({
       type: CATCH_ERROR,
-      payload: e.message,
+      payload: handleError(e, 5),
     });
   }
 };
@@ -71,3 +73,15 @@ export const login = (userLoggedIn) => async (dispatch) => {
     });
   }
 };
+
+export function clearError() {
+  return (dispatch) => {
+    dispatch({ type: CLEAR_ERROR });
+  };
+}
+
+export function logout() {
+  return (dispatch) => {
+    dispatch({ type: LOGOUT });
+  };
+}

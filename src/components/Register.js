@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../image/rodufy.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { register } from "../redux/actions/userActions";
+import { clearError, register } from "../redux/actions/userActions";
 
 // form validation
 const reviewSchema = yup.object({
@@ -23,6 +23,12 @@ const Register = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("idle");
   const { error } = useSelector((state) => state.error);
+
+  //On route change, reset error to null
+  useEffect(() => {
+    dispatch(clearError());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //Initial value before form is submitted
   const initialValues = {
@@ -56,7 +62,9 @@ const Register = () => {
     } else {
       setStatus("error");
       setTimeout(() => {
-        toast.error(`${error}`);
+        !error
+          ? toast.error("Something went wrong. Please try again.")
+          : toast.error(`${error}`);
       }, 3000);
     }
   };
@@ -105,7 +113,7 @@ const Register = () => {
                   <ErrorMessage
                     name="email"
                     component="div"
-                    className="py-3 flex justify-center text-red-500 text-xs italic"
+                    className="py-3 flex justify-center field-error text-red-500 text-xs italic"
                   />
 
                   <Field

@@ -13,8 +13,6 @@ const persistConfig = {
   blacklist: ["error"],
 };
 
-console.log(persistConfig.storage);
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = createStore(
