@@ -254,7 +254,9 @@ const indexMain = () => {
               <a href="#contactUs">Contact Us</a>
             </p>
           </div>
-          <p className="text-center mt-20 mb-3">copyright Rodufy 2022</p>
+          <p className="text-center mt-20 mb-3 text-sm">
+            copyright Rodufy 2022
+          </p>
         </section>
       </footer>
     </section>

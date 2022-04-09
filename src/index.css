@@ -1,4 +1,4 @@
-@import "~slick-carousel/slick/slick.css"; 
+@import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
 @tailwind base;
@@ -12,8 +12,8 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-    scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+  scroll-behavior: smooth;
 }
 
 .sidebar {
@@ -22,16 +22,15 @@ body {
 }
 
 .contactUs_section {
-    background: url("./image/Frame11.svg");
-    background-size: cover;
-    background-position: top right;
+  background: url("./image/Frame11.svg");
+  background-size: cover;
+  background-position: top right;
 }
-
 
 .bar {
   width: 10px;
   height: 70px;
-  background: #EA7052;
+  background: #ea7052;
   display: inline-block;
   transform-origin: bottom center;
   border-top-right-radius: 20px;
@@ -77,7 +76,6 @@ body {
     background: transparent;
   }
 }
-
 
 @media screen and (min-width: 768px) {
   .sidebar {

@@ -65,7 +65,7 @@ const Register = () => {
         !error
           ? toast.error("Something went wrong. Please try again.")
           : toast.error(`${error}`);
-      }, 3000);
+      }, 2000);
     }
   };
 
@@ -82,13 +82,14 @@ const Register = () => {
 
   return (
     <div>
-      <Link to="/">
-        <div className="sidebar md:w-48 w-full p-5 fixed">
+      <div className="sidebar md:w-52 w-full p-5 fixed flex justify-center md:justify-start ">
+        <Link to="/">
           <img src={Logo} alt="Rodufy Logo" className="w-36 h-auto" />
-        </div>
-      </Link>
-      <section className="md:ml-48 flex items-center h-screen bg-tertiary">
-        <div className="register sm:m-12 m-6 sm:px-10 px-8 py-16  bg-white drop-shadow-lg rounded-xl">
+        </Link>
+      </div>
+
+      <section className="md:ml-52 flex justify-center md:justify-start items-center h-screen bg-tertiary">
+        <div className="register md:m-20 m-6 sm:px-10 px-8 py-16 bg-white drop-shadow-lg rounded-xl max-w-lg w-full">
           <h3 className="text-center text-lg font-bold">Register</h3>
           <Toaster position="top-right" />
           <Formik
@@ -100,8 +101,8 @@ const Register = () => {
             }}
           >
             {({ isSubmitting }) => (
-              <div>
-                <Form className="py-6">
+              <Form className="py-6">
+                <div>
                   <Field
                     type="email"
                     name="email"
@@ -113,9 +114,10 @@ const Register = () => {
                   <ErrorMessage
                     name="email"
                     component="div"
-                    className="py-3 flex justify-center field-error text-red-500 text-xs italic"
+                    className="py-3 flex justify-center error text-red-500 text-xs italic"
                   />
-
+                </div>
+                <div>
                   <Field
                     type="password"
                     name="password"
@@ -126,20 +128,20 @@ const Register = () => {
                   <ErrorMessage
                     name="password"
                     component="div"
-                    className="py-3 flex justify-center text-red-500 text-xs italic"
+                    className="py-3 flex justify-center error text-red-500 text-xs italic"
+                    id="error"
                   />
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`text-center bg-secondary w-full text-white rounded hover:bg-orange-600 p-4 mt-6 ${
-                      status === "loading" && "bg-opacity-70"
-                    }`}
-                  >
-                    {renderSubmitText()}
-                  </button>
-                </Form>
-              </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`text-center bg-secondary w-full text-white rounded hover:bg-orange-600 p-4 mt-6 ${
+                    status === "loading" && "bg-opacity-70"
+                  }`}
+                >
+                  {renderSubmitText()}
+                </button>
+              </Form>
             )}
           </Formik>
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { HashLink } from "react-router-hash-link";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import Logo from "../image/rodufy.png";
 import { clearError, fetchPosts, logout } from "../redux/actions/userActions";
@@ -115,6 +115,7 @@ const Post = () => {
   let userEmailSlice =
     loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
 
+  //Posts to display per load more click
   const slicePostToDisplay = (start, end) => {
     const slicedPosts = posts.slice(
       postsToShow.length,
@@ -145,7 +146,6 @@ const Post = () => {
   const handleShowMorePosts = () => {
     slicePostToDisplay(next, next + postsPerPage);
     setNext(next + postsPerPage);
-    console.log(postsToShow);
     moveUp.current.style.display = "block";
   };
 
@@ -249,7 +249,7 @@ const Post = () => {
               </div>
             ) : (
               <div>
-                <div className="grid md:grid-cols-2 gap-14">{trending}</div>
+                <div className="grid sm:grid-cols-2 gap-14">{trending}</div>
                 <div className="flex justify-center mt-24">
                   {postsToShow.length > 0 && (
                     <>
