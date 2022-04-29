@@ -13,10 +13,12 @@ const Post = () => {
   const posts = useSelector((state) => state.userInfo.products);
   const loggedIn = useSelector((state) => state.userInfo.login);
   const [postsToShow, setPostsToShow] = useState([]);
-  const [next, setNext] = useState(4);
+
   const [sort, setSort] = useState(true);
+
   const navigate = useNavigate();
   const postsPerPage = 8;
+  const next = 4;
   let newArrForPosts = [];
   const dispatch = useDispatch();
   const moveUp = useRef();
@@ -69,22 +71,6 @@ const Post = () => {
     ],
   };
 
-  //map through posts
-  const topPost = posts?.slice(0, 6).map((post) => (
-    <div key={post.id}>
-      <div className="relative sm:mr-4 mr-0 overflow-hidden cursor-pointer ">
-        <img
-          src={post.metaImageUrl}
-          alt="images"
-          className="w-full h-96 rounded object-cover transition-all hover:scale-125 ease-in duration-700"
-        />
-        <p className="absolute bottom-3 left-2 right-2 bg-overlay bg-opacity-50 text-white rounded line-clamp-2 hover:line-clamp-none hover:cursor-pointer px-4 py-2">
-          {post.description}
-        </p>
-      </div>
-    </div>
-  ));
-
   //Sort fetched data
   const handleSort = (arr) => {
     if (sort) {
@@ -115,20 +101,40 @@ const Post = () => {
   let userEmailSlice =
     loggedIn && loggedIn.email?.slice(0, loggedIn.email.indexOf("@"));
 
-  //Posts to display per load more click
+  //Number of posts to display per load more click
   const slicePostToDisplay = (start, end) => {
-    const slicedPosts = posts.slice(
-      postsToShow.length,
-      postsToShow.length + postsPerPage
-    );
+    const slicedPosts = posts.slice(start, start + end);
     newArrForPosts = [...postsToShow, ...slicedPosts];
     setPostsToShow(newArrForPosts);
   };
 
   useEffect(() => {
-    posts && slicePostToDisplay(0, postsPerPage);
+    posts && slicePostToDisplay(postsToShow.length, postsPerPage);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [posts.length]);
+
+  //Handle "load More" click
+  const handleShowMorePosts = () => {
+    slicePostToDisplay(postsToShow.length, next);
+    moveUp.current.style.display = "block";
+  };
+
+  //map through posts
+  const topPost = posts?.slice(0, 6).map((post) => (
+    <div key={post.id}>
+      <div className="relative sm:mr-4 mr-0 overflow-hidden cursor-pointer ">
+        <img
+          src={post.metaImageUrl}
+          alt="images"
+          className="w-full h-96 rounded object-cover transition-all hover:scale-125 ease-in duration-700"
+        />
+        <p className="absolute bottom-3 left-2 right-2 bg-overlay bg-opacity-50 text-white rounded line-clamp-2 hover:line-clamp-none hover:cursor-pointer px-4 py-2">
+          {post.description}
+        </p>
+      </div>
+    </div>
+  ));
 
   const trending = postsToShow?.map((post) => (
     <div className="relative overflow-hidden cursor-pointer" key={post.id}>
@@ -142,12 +148,6 @@ const Post = () => {
       </p>
     </div>
   ));
-
-  const handleShowMorePosts = () => {
-    slicePostToDisplay(next, next + postsPerPage);
-    setNext(next + postsPerPage);
-    moveUp.current.style.display = "block";
-  };
 
   return (
     <div>

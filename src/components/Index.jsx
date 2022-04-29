@@ -7,7 +7,7 @@ import Avatar from "../image/Group 4.svg";
 
 const Index = () => {
   return (
-    <div className="xs:text-left text-center">
+    <div className="sm:text-left text-center">
       <section className="bg-secondary py-5 px-3">
         <div className="flex justify-between container mx-auto md:max-w-6xl">
           <span className=" text-white bg-secondaryLight cursor-pointer rounded-md py-2 px-6 mr-3 sm:mr-0">
@@ -37,12 +37,12 @@ const Index = () => {
             </span>
           </Link>
         </div>
-        <p className="text-white underline xs:hidden  mt-3">
+        <p className="text-white underline xs:hidden mt-3">
           Announcing our $15 million4series A funding!
         </p>
       </section>
       <section className="hero__section bg-primary">
-        <div className="container mx-auto md:max-w-5xl px-3 pt-8 pb-12">
+        <div className="container mx-auto md:max-w-5xl max-w-6xl lg:px-0 px-5 pt-8 pb-12">
           <header>
             <div className="xs:flex justify-between">
               <div className="mb-6 sm:mb-0 ">
@@ -64,7 +64,7 @@ const Index = () => {
           </header>
           <section className="mission_section" id="mission">
             <div className="md:flex justify-between mt-16">
-              <div className="text-white leading-loose">
+              <div className="text-white leading-loose lg:mr-0 mr-5">
                 <div className="md:w-96 mt-4 mb-5 md:mb-0">
                   <h1 className="font-bold lg:text-4xl text-3xl tracking-wider">
                     Our mission is to{" "}
@@ -147,7 +147,11 @@ const Index = () => {
                 </div>
               </div>
               <div className="">
-                <img src={Girl} alt="A girl smiling" className="w-full" />
+                <img
+                  src={Girl}
+                  alt="A girl smiling"
+                  className="w-full h-auto"
+                />
               </div>
             </div>
           </section>
@@ -155,8 +159,8 @@ const Index = () => {
       </section>
       <main>
         <section className="goal__section">
-          <div className="md:flex justify-between md:my-10 container mx-auto md:max-w-5xl p-3">
-            <div className="leading-loose">
+          <div className="md:flex justify-between md:my-10 container mx-auto md:max-w-5xl max-w-6xl p-5 lg:p-0">
+            <div className="leading-loose lg:mr-0  mr-5">
               <div className="md:w-96 mt-7 mb-6 md:mb-0">
                 <h2 className="font-bold lg:text-4xl text-3xl tracking-wider">
                   Everything you’ll need to{" "}
@@ -175,12 +179,16 @@ const Index = () => {
               </div>
             </div>
             <div>
-              <img src={People} alt="People on the bus" className="w-full" />
+              <img
+                src={People}
+                alt="People on the bus"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </section>
         <section className="contactUs_section py-4" id="contactUs">
-          <div className="md:flex justify-between container mx-auto md:max-w-5xl p-3 mb-6">
+          <div className="md:flex justify-between container mx-auto md:max-w-5xl max-w-6xl p-5 lg:p-0 mb-6">
             <div className="leading-loose">
               <div className="md:w-96 md:mt-16 mt-6">
                 <h2 className="font-bold lg:text-4xl text-3xl tracking-wider">
@@ -258,7 +266,7 @@ const Index = () => {
               <img
                 src={Avatar}
                 alt="A drawing illustration"
-                className="lg:w-10/12 w-full h-auto"
+                className="md:w-10/12 w-full h-auto"
               />
             </div>
           </div>

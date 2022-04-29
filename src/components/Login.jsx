@@ -1,24 +1,24 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../image/rodufy.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { clearError, register } from "../redux/actions/userActions";
+import { clearError, login } from "../redux/actions/userActions";
 
 // form validation
 const reviewSchema = yup.object({
-  email: yup.string().required("Email is required").email("Email is not valid"),
-  password: yup
+  email: yup
     .string()
-    .required("Password is required")
-    .min(8, "Password must be 8 characters or longer"),
+    .required("Email is required to Login")
+    .email("Email is not valid"),
+  password: yup.string().required("Password is required Login"),
 });
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [status, setStatus] = useState("idle");
@@ -41,23 +41,19 @@ const Register = () => {
     setStatus("loading");
 
     //Payload Schema
-    const userInfo = {
+    const loggedInUser = {
       email,
       password,
     };
 
     //Get a response from the api call
-    const responseData = await dispatch(register(userInfo));
+    const responseData = await dispatch(login(loggedInUser));
 
     //Display a message according to the response status
     if (responseData?.status === 200) {
       setTimeout(() => {
         setStatus("success");
-        toast.success("User successfully registered!");
-
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+        navigate("/post");
       }, 2000);
     } else {
       setStatus("error");
@@ -69,28 +65,30 @@ const Register = () => {
     }
   };
 
-  //Changes the text in the register button depending on the status
+  //Changes the text in the login button depending on the status
   const renderSubmitText = () => {
     if (status === "idle" || status === "error") {
-      return "Register";
+      return "Login";
     } else if (status === "success") {
-      return "Registered!";
+      return "Logged In!";
     } else if (status === "loading") {
-      return "Registering...";
+      return "Logging in...";
     }
   };
 
   return (
     <div>
       <div className="sidebar md:w-52 w-full p-5 fixed flex justify-center md:justify-start ">
-        <Link to="/">
-          <img src={Logo} alt="Rodufy Logo" className="w-36 h-auto" />
-        </Link>
+        <div>
+          <Link to="/">
+            <img src={Logo} alt="Rodufy Logo" className="w-36 h-auto" />
+          </Link>
+        </div>
       </div>
 
       <section className="md:ml-52 flex justify-center md:justify-start items-center h-screen bg-tertiary">
         <div className="register md:m-20 m-6 sm:px-10 px-8 py-16 bg-white drop-shadow-lg rounded-xl max-w-lg w-full">
-          <h3 className="text-center text-lg font-bold">Register</h3>
+          <h3 className="text-center text-lg font-bold">Login</h3>
           <Toaster position="top-right" />
           <Formik
             initialValues={initialValues}
@@ -150,4 +148,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

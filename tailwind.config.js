@@ -19,10 +19,5 @@ module.exports = {
   variants: {
     lineClamp: ["responsive", "hover"],
   },
-  variants: {
-    extend: {
-      lineClamp: ["responsive", "hover"],
-    },
-  },
   plugins: [require("@tailwindcss/line-clamp")],
 };
